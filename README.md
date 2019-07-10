@@ -5,7 +5,18 @@ A Rhoana tool for 2D stitching and 3D alignemnt of a stack of EM images.
 Currently supports 2D rigid stitching, and 3D elastic (non-affine) alignment.
 
 ## Requirements
-- Requires OpenCV 2.4+
+- Python version = 3.x (3.7 is recommended)
+- Requires OpenCV 3.x 
+I suggest to install opencv using conda and set PKG_CONFIG_PATH as the path in conda envs.
+```
+$ conda create -n YOUR_ENV python=3.7
+$ conda install opencv=3.4
+$ export PKG_CONFIG_PATH=/path/to/conda envs/YOUR_ENV/lib/pkgconfig/
+```
+**Tips**
+DON'T USE OpenCV2.x because of python3.
+DON'T USE OpenCV4.x because there is some significant changes that lead to conflicts.
+A later version will support OpenCV4.  
 - Python requirements in [requirements.txt](requirements.txt)
 
 ## Installation
