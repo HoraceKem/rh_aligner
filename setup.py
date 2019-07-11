@@ -12,13 +12,19 @@ README = open('README.md').read()
 
 flags = subprocess.check_output(['pkg-config', '--cflags-only-I', 'opencv'])
 include_dirs_list = [flag[2:] for flag in flags.split()]
+include_dirs_list = [i.decode("utf-8") for i in include_dirs_list]
 include_dirs_list.append('.')
+
 flags = subprocess.check_output(['pkg-config', '--libs-only-L', 'opencv'])
-library_dirs_list = flags
+library_dirs_list = flags.decode("utf-8")
+
 flags = subprocess.check_output(['pkg-config', '--libs', 'opencv'])
 libraries_list = []
 for flag in flags.split():
     libraries_list.append(flag)
+libraries_list = [i.decode("utf-8") for i in libraries_list]
+
+
 
 EXTENSIONS = [
         Extension(
@@ -28,14 +34,14 @@ EXTENSIONS = [
                   include_dirs=include_dirs_list,
                   extra_compile_args=['-O3', '--verbose'],
                   extra_objects=libraries_list
-                 ),
-        Extension(
-                  "rh_aligner/alignment/mesh_derivs_multibeam",
-                  ["rh_aligner/alignment/mesh_derivs_multibeam.pyx"],
-                  include_dirs=[np.get_include()],
-                  extra_compile_args=['-fopenmp', '-O3', '--verbose'],
-                  extra_link_args=['-fopenmp']
                  )
+#        Extension(
+#                  "rh_aligner/alignment/mesh_derivs_multibeam",
+#                  ["rh_aligner/alignment/mesh_derivs_multibeam.pyx"],
+#                  include_dirs=[np.get_include()],
+#                  extra_compile_args=['-fopenmp', '-O3', '--verbose'],
+#                  extra_link_args=['-fopenmp']
+#                 )
 ]
 
 setup(
